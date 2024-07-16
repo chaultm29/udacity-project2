@@ -13,6 +13,20 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
 
+  app.get('/filteredimage', async ( req, res ) => {
+    try{
+      //get image url
+      const imgUrl = req.query.image_url.toString();
+      const filImage = await filterImageFromURL(imgUrl);
+      //send file -> if 200 delete local file 
+      res.status(200).sendFile(filImage, () => {
+        deleteLocalFiles([filImage]);
+      });
+    } catch (error) {
+      res.status(404).send({message: "Can not find image, please check the link again", error});
+    }
+    
+  })
   // @TODO1 IMPLEMENT A RESTFUL ENDPOINT
   // GET /filteredimage?image_url={{URL}}
   // endpoint to filter an image from a public url.
