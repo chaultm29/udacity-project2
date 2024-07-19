@@ -7,6 +7,9 @@ You will build upon the application we've developed during the lessons in this c
 
 http://udacity-p2-image-filter-dev.us-east-1.elasticbeanstalk.com/
 
+## Image from Udacity
+http://udacity-p2-image-filter-dev.us-east-1.elasticbeanstalk.com/filteredimage?image_url=https://upload.wikimedia.org/wikipedia/commons/b/bd/Golden_tabby_and_white_kitten_n01.jpg
+
 ## Getting Started
 
 You can clone this repo to run the project locally, or navigate to the workspace in the Udacity course.
