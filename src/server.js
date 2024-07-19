@@ -16,14 +16,22 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util.js';
   app.get('/filteredimage', async ( req, res ) => {
     try{
       //get image url
-      const imgUrl = req.query.image_url.toString();
-      const filImage = await filterImageFromURL(imgUrl);
+      const imgUrl = req.query.image_url;
+      if (!imgUrl) {
+        res.status(400).send('you missed imgUrl');
+        return;
+      }
+      const filImage = await filterImageFromURL(imgUrl.toString());
+      if (!filImage) {
+        res.status(500).send({ message: "can not filter image" });
+        return;
+      }
       //send file -> if 200 delete local file 
       res.status(200).sendFile(filImage, () => {
         deleteLocalFiles([filImage]);
       });
     } catch (error) {
-      res.status(404).send({message: "Can not find image, please check the link again", error});
+      res.status(500).send({message: "Can not display image, please check the link again", error});
     }
     
   })
